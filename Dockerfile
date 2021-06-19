@@ -12,6 +12,7 @@ RUN true && \
 	apt install cloudflare-warp -y && \
 	apt clean -y && \
 	chmod +x /entrypoint.sh
+COPY haproxy.cfg /etc/haproxy/haproxy.cfg
 
 EXPOSE 40000/tcp
 ENTRYPOINT [ "/entrypoint.sh" ]

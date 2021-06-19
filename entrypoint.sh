@@ -8,8 +8,9 @@ while ! warp-cli register; do
 	>&2 echo "Awaiting warp-svc become online..."
 done
 warp-cli set-mode proxy
-warp-cli set-proxyport 40001
+warp-cli set-proxy-port 40001
 warp-cli connect
+haproxy -f /etc/haproxy/haproxy.cfg
 ) &
 
 exec warp-svc
