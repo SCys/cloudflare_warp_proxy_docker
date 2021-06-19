@@ -1,15 +1,13 @@
 #!/bin/bash
 
-yes | warp-cli status
-
 (
-while ! warp-cli register; do
+while ! warp-cli --accept-tos register; do
 	sleep 1
 	>&2 echo "Awaiting warp-svc become online..."
 done
-warp-cli set-mode proxy
-warp-cli set-proxy-port 40001
-warp-cli connect
+warp-cli --accept-tos set-mode proxy
+warp-cli --accept-tos set-proxy-port 40001
+warp-cli --accept-tos connect
 haproxy -f /etc/haproxy/haproxy.cfg
 ) &
 
