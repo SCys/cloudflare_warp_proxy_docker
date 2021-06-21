@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - 'master'
-  release:
-    types: [published]
+  schedule:
+    - cron: '3 8 * * *'
 
 jobs:
   docker:
@@ -14,29 +14,6 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      -
-        name: Find Git Tag
-        id: tagger
-        uses: jimschubert/query-tag-action@v2
-        with:
-          include: 'v*'
-          exclude: '*-rc*'
-          commit-ish: 'HEAD'
-          skip-unshallow: 'true'
-          abbrev: 7
-      -
-        name: Determine image tag type
-        uses: haya14busa/action-cond@v1
-        id: imgtag
-        with:
-          cond: ${{ github.event_name == 'release' }}
-          if_true: ${{ secrets.DOCKERHUB_USERNAME }}/warp-proxy:${{ github.event.release.tag_name }},${{ secrets.DOCKERHUB_USERNAME }}/warp-proxy:latest
-          if_false: ${{ secrets.DOCKERHUB_USERNAME }}/warp-proxy:latest
-      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -53,5 +30,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.imgtag.outputs.value }}
-          build-args: 'GIT_DESC=${{steps.tagger.outputs.tag}}'
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/warp-proxy:latest
