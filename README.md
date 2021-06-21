@@ -1,6 +1,6 @@
 # docker-warp-proxy
 
-Docker image to run Cloudflare Warp in proxy mode.
+Docker image to run Cloudflare Warp in proxy mode. Image is rebuilt and updated every day.
 
 ## Usage
 
