@@ -1,4 +1,4 @@
-ARG DEBIAN_RELEASE=buster
+ARG DEBIAN_RELEASE=bullseye
 FROM docker.io/debian:$DEBIAN_RELEASE-slim
 ARG DEBIAN_RELEASE
 COPY pubkey.gpg entrypoint.sh /
