@@ -8,7 +8,7 @@ done
 warp-cli --accept-tos set-mode proxy
 warp-cli --accept-tos set-proxy-port 40001
 warp-cli --accept-tos connect
-warp-cli enable-alway-on
+warp-cli enable-always-on
 haproxy -f /etc/haproxy/haproxy.cfg
 ) &
 
